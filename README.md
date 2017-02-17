@@ -1,41 +1,36 @@
 Cashier
 =====================
 
-**Written by Tim Jones for David X at Benetech, February 2017**
+**Written by Tim Jones for David Murphy at Benetech, February 2017**
 
 ## Howto
 
- * To use the app quickly, here it is running on Heroku
- * To run the app locally, clone this repository, then run `npm install` and `npm start`
- * To run tests....
+ * For a quick look, check out the app on [Heroku](https://benetech-cashier.herokuapp.com/)
+ * To install the app locally , clone this repository and run `npm install` from its directory
+ * To run the server locally, run `npm start` and point your browser at `http://localhost:5000/`
+ * To run the tests, install the app and run `npm test`
 
 ## Key Files
 
- * The core transaction logic lives in the `/models` directory.
-  * The `CashRegister` object runs the show
-  * The `CashBundle` object is a helper to `CashRegister`
- * The primary client-side logic lives in `/public/cashier.js`
- * The control logic lives in `router.js`
- * The `test` directory contains tests for the core models. (The web server and related components are not tested.)
+ * The core transaction logic lives in model called CashRegister, in the `/models/cashregister.js` file.
+ * The `test` directory contains tests for the CashRegister. (The web app is not tested.)
+ * The client-side logic lives in `/public/cashier.js`
+ * The server control logic lives in `router.js`
 
 ## Room to Grow
 
 There's plenty of room for improvement here, but I cut myself off before I got carried away. Things I would probably work on next if I wanted to spend more time:
 
- * The front-end JQuery code is a lot sloppier than the back-end Node code. If this was a serious web application, a lot more documentation and structure would be necessary here.
- * bar
+* The `/transaction` API spec is a little simplistic. I'd like to add nicer status codes and error messages.
+ * The front-end code is notably sloppier than the back-end code. For a serious web application, I'd use something more robust than raw JQuery.
 
 ## Tooling
 
- * Node.js is our server-side framework
- * Express.js is our Node web-server
- * Pug handles server-side views
- * JSDoc for server-side code documentation
- * Chai is our unit-testing framework
- * Mocha is used for running Chai tests from the CLI
- * Bower manages client-side javascript packages
- * JQuery is our client-side javascript framework
- * Mustache.js provides client-side javascript templating
+ * [Node.js](https://nodejs.org/en/) is our server-side framework
+ * [Express.js](http://expressjs.com/) is our Node web-server
+ * Documentation of the `CashRegister` object uses [JSDoc](http://usejsdoc.org/) formatting
+ * [Chai](http://chaijs.com/) and [Mocha](https://mochajs.org/) handle unit-tests
+ * And our client-side javascript uses good ol' [JQuery](https://jquery.com/)
 
 ## Assumptions
 

@@ -11,43 +11,51 @@ describe('CashRegister:', function() {
     var expectedTotal = _(Config.denominations)
                         .map(n => n * initialCount)
                         .sum()
-    assert.equal(cRegister.totalValue(), expectedTotal)
+    assert.equal(cRegister.totalValue, expectedTotal)
   })
 
   describe('In a successful transaction', function() {
     const initialCount = 10
-    const price = 21
-    const payment = 21
+    const price = 23
+    const payment = 100
 
     var cRegister = new CashRegister(initialCount)
-    var initialTotal = cRegister.totalValue()
-    var changeBundle = cRegister.transact(price, payment)
+    var initialTotal = cRegister.totalValue
+    var transaction = cRegister.transact(price, payment)
+    var changeValue = CashRegister.totalValueOfDenomMap(transaction)
 
     it ('returns correct change', function(){
-      assert.equal(changeBundle.totalValue(), (payment - price))
+      assert.equal(changeValue, (payment - price))
     })
 
     it ('correctly updates the drawer', function(){
-      var expectedTotal = initialTotal + payment - changeBundle.totalValue()
-      assert.equal(cRegister.totalValue(), expectedTotal)
+      var expectedTotal = initialTotal + payment - changeValue
+      assert.equal(cRegister.totalValue, expectedTotal)
+    })
+  })
+
+  describe('In a transaction with no dimes in the drawer', function(){
+    var cRegister = new CashRegister(0)
+    cRegister.addOne(5)
+    cRegister.addOne(5)
+    cRegister.addOne(1)
+
+    const price = 89
+    const payment = 100
+
+    var transaction = cRegister.transact(price, payment)
+
+    it ('returns change using nickels', function(){
+      assert.equal(transaction[5], 2)
+      assert.equal(transaction[10], 0)
     })
   })
 
   describe('In a transaction with insufficient funds in the drawer', function(){
     const price = 100000
     const payment = 90000
-
     var cRegister = new CashRegister(1)
-    var initialTotal = cRegister.totalValue()
-    var changeBundle = cRegister.transact(price, payment)
-
-    it ('returns an error', function(){
-      assert.isNotOk(changeBundle)
-    })
-
-    it ('does not modify the drawer', function(){
-      assert.equal(cRegister.totalValue(), initialTotal)
-    })
+    assertInvalidTransaction(cRegister,price,payment)
   })
 
   describe('In a transaction with insufficient change in the drawer', function(){
@@ -55,17 +63,43 @@ describe('CashRegister:', function() {
     const payment = 100
 
     var cRegister = new CashRegister(0)
-    cRegister.drawer.addValue(2000)
-    var initialTotal = cRegister.totalValue()
-    var changeBundle = cRegister.transact(price, payment)
+    cRegister.addOne(2000)
 
-    it ('returns an error', function(){
-      assert.isNotOk(changeBundle)
-    })
+    assertInvalidTransaction(cRegister,price,payment)
+  })
 
-    it ('does not modify the drawer', function(){
-      assert.equal(cRegister.totalValue(), initialTotal)
-    })
+  describe('In a transaction with an insufficient payment', function(){
+    const price = 200
+    const payment = 100
+    var cRegister = new CashRegister(10)
+    assertInvalidTransaction(cRegister,price,payment)
+  })
+
+  describe('In a transaction with a negative payment', function(){
+    const price = 100
+    const payment = -100
+    var cRegister = new CashRegister(10)
+    assertInvalidTransaction(cRegister,price,payment)
+  })
+
+  describe('In a transaction with a negative price', function(){
+    const price = -100
+    const payment = 100
+    var cRegister = new CashRegister(10)
+    assertInvalidTransaction(cRegister,price,payment)
   })
 
 })
+
+function assertInvalidTransaction(cRegister,price,payment){
+  var initialTotal = cRegister.totalValue
+  var transaction = cRegister.transact(price, payment)
+
+  it ('returns an error', function(){
+    assert.isNotOk(transaction)
+  })
+
+  it ('does not modify the drawer', function(){
+    assert.equal(cRegister.totalValue, initialTotal)
+  })
+}
