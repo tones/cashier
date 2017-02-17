@@ -13,7 +13,7 @@ Cashier
 ## Key Files
 
  * The core transaction logic lives in a model called CashRegister, in the `/models/cashregister.js` file.
- * The `test` directory contains tests for the CashRegister. (The web app is not tested.)
+ * The `/test` directory contains tests for the CashRegister. (The web app is not tested.)
  * The client-side logic lives in `/public/cashier.js`
  * The server control logic lives in `router.js`
 
