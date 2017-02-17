@@ -21,7 +21,7 @@ Cashier
 
 There's plenty of room for improvement here, but I cut myself off before I got carried away. Things I would probably work on next if I wanted to spend more time:
 
-* The `/transaction` API spec is a little simplistic. I'd like to add nicer status codes and error messages.
+ * The `/transaction` API spec is a little simplistic. I'd like to add nicer status codes and error messages.
  * The front-end code is notably sloppier than the back-end code. For a serious web application, I'd use something more robust than raw JQuery.
 
 ## Tooling
