@@ -47,8 +47,8 @@ CashRegister.totalValueOfDenomMap = function(denomMap){
  *
  */
 CashRegister.prototype.transact = function(price, payment){
-  // ensure values are not negative
-  if ((price < 0) || (payment < 0)){ return false }
+  // quick-and-dirty input validation
+  if ((price < 0) || (payment < 0) || (payment-price <= 0)){ return false }
 
   // operate on a copy of the drawer
   // (do not save changes to the "real" drawer unless the transaction succeeds)

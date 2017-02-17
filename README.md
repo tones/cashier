@@ -28,7 +28,7 @@ There's plenty of room for improvement here, but I cut myself off before I got c
 
  * [Node.js](https://nodejs.org/en/) is our server-side framework
  * [Express.js](http://expressjs.com/) is our Node web-server
- * Documentation of the `CashRegister` object uses [JSDoc](http://usejsdoc.org/) formatting
+ * Documentation in `cashregister.js` uses [JSDoc](http://usejsdoc.org/) formatting
  * [Chai](http://chaijs.com/) and [Mocha](https://mochajs.org/) handle unit-tests
  * And our client-side javascript uses good ol' [JQuery](https://jquery.com/)
 
