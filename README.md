@@ -19,7 +19,7 @@ Cashier
 
 ## Room to Grow
 
-There's plenty of room for improvement here, but I cut myself off before I got carried away. Things I would probably work on next if I wanted to spend more time:
+There's plenty of room for improvement here. A few obvious things I'd try to improve next:
 
  * The `/transaction` API spec is a little simplistic. I'd like to add nicer status codes and error messages.
  * The front-end code is notably sloppier than the back-end code. For a serious web application, I'd use something more robust than raw JQuery.
